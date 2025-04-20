@@ -1,8 +1,8 @@
 Package: PatientLevelPrediction
 Type: Package
 Title: Develop Clinical Prediction Models Using the Common Data Model
-Version: 6.4.0
-Date: 2025-02-05
+Version: 6.4.1
+Date: 2025-04-15
 Authors@R: c(
     person("Egill", "Fridgeirsson", email = "e.fridgeirsson@erasmusmc.nl", role = c("aut", "cre")),
     person("Jenna", "Reps", email = "jreps@its.jnj.com", role = c("aut")),
@@ -37,7 +37,7 @@ RoxygenNote: 7.3.2
 Encoding: UTF-8
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2025-02-10 11:35:44 UTC; egill
+Packaged: 2025-04-14 18:51:14 UTC; egill
 Author: Egill Fridgeirsson [aut, cre],
   Jenna Reps [aut],
   Martijn Schuemie [aut],
@@ -47,4 +47,4 @@ Author: Egill Fridgeirsson [aut, cre],
   Observational Health Data Science and Informatics [cph]
 Maintainer: Egill Fridgeirsson <e.fridgeirsson@erasmusmc.nl>
 Repository: CRAN
-Date/Publication: 2025-02-11 09:30:14 UTC
+Date/Publication: 2025-04-20 09:40:02 UTC
