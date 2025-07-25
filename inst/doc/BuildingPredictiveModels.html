@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jenna Reps, Martijn J. Schuemie, Patrick B. Ryan, Peter R. Rijnbeek" />
 
-<meta name="date" content="2025-04-14" />
+<meta name="date" content="2025-07-25" />
 
 <title>Building patient-level predictive models</title>
 
@@ -62,7 +62,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -342,7 +342,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 models</h1>
 <h4 class="author">Jenna Reps, Martijn J. Schuemie, Patrick B. Ryan,
 Peter R. Rijnbeek</h4>
-<h4 class="date">2025-04-14</h4>
+<h4 class="date">2025-07-25</h4>
 
 
 
@@ -882,7 +882,7 @@ stroke cohort in ATLAS.</p>
 <li>Stroke (O) : <a href="https://atlas-demo.ohdsi.org/#/cohortdefinition/1769448" class="uri">https://atlas-demo.ohdsi.org/#/cohortdefinition/1769448</a></li>
 </ul>
 <p>In depth explanation of cohort creation in ATLAS is out of scope of
-this vignette but can be found on the OHDSI wiki pages <a href="https://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:atlas">(link)</a>.</p>
+this vignette but can be found on the OHDSI wiki pages <a href="https://github.com/OHDSI/Atlas/wiki">(link)</a>.</p>
 <p>Note that when a cohort is created in ATLAS the <code>cohortId</code>
 is needed to extract the data in R. The <code>cohortId</code> can be
 found at the top of the ATLAS screen, e.g. 1769447 in Figure 4.</p>
@@ -1823,11 +1823,8 @@ hyper-parameters. The hyper-parameters that lead to the
 bestcross-validation performance will then be chosen for the final
 model. For our problem we choose to build a logistic regression model
 with the default hyper-parameters</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>gbmModel <span class="ot">&lt;-</span> <span class="fu">setGradientBoostingMachine</span>(</span>
-<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="at">ntrees =</span> <span class="dv">5000</span>,</span>
-<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="at">maxDepth =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">10</span>),</span>
-<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>  <span class="at">learnRate =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">0.9</span>)</span>
-<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>gbmModel <span class="ot">&lt;-</span> <span class="fu">setGradientBoostingMachine</span>(<span class="at">ntrees =</span> <span class="dv">5000</span>, <span class="at">maxDepth =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">10</span>), <span class="at">learnRate =</span> <span class="fu">c</span>(<span class="fl">0.001</span>,</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>    <span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">0.9</span>))</span></code></pre></div>
 <p>The <code>runPlP</code> function requires the <code>plpData</code>,
 the <code>outcomeId</code> specifying the outcome being predicted and
 the settings: <code>populationSettings</code>,
@@ -2108,13 +2105,13 @@ subjects with the outcome compared to those without.</p>
 <p>## Precision recall</p>
 <p>Precision is defined as the number of true positives (Tp) over the
 number of true positives plus the number of false positives (Fp).</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>precision <span class="ot">&lt;-</span> Tp <span class="sc">/</span> (Tp <span class="sc">+</span> Fp)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>precision <span class="ot">&lt;-</span> Tp<span class="sc">/</span>(Tp <span class="sc">+</span> Fp)</span></code></pre></div>
 <p>Recall is defined as the number of true positives (Tp) over the
 number of true positives plus the number of false negatives (Fn).</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>recall <span class="ot">&lt;-</span> Tp <span class="sc">/</span> (Tp <span class="sc">+</span> Fn)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>recall <span class="ot">&lt;-</span> Tp<span class="sc">/</span>(Tp <span class="sc">+</span> Fn)</span></code></pre></div>
 <p>These quantities are also related to the (F1) score, which is defined
 as the harmonic mean of precision and recall.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>f1Score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> P <span class="sc">*</span> R <span class="sc">/</span> (P <span class="sc">+</span> R)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>f1Score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> P <span class="sc">*</span> R<span class="sc">/</span>(P <span class="sc">+</span> R)</span></code></pre></div>
 <p>Note that the precision can either decrease or increase if the
 threshold is lowered. Lowering the threshold of a classifier may
 increase the denominator, by increasing the number of results returned.
@@ -2282,8 +2279,8 @@ the <code>Cyclops</code> package.</p>
 ##   Suchard MA, Simpson SE, Zorych I, Ryan P, Madigan D (2013). &quot;Massive
 ##   parallelization of serial inference algorithms for complex
 ##   generalized linear models.&quot; _ACM Transactions on Modeling and
-##   Computer Simulation_, *23*, 10.
-##   &lt;https://dl.acm.org/doi/10.1145/2414416.2414791&gt;.
+##   Computer Simulation_, *23*, 10. doi:10.1145/2414416.2414791
+##   &lt;https://doi.org/10.1145/2414416.2414791&gt;.
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
@@ -2294,7 +2291,7 @@ the <code>Cyclops</code> package.</p>
 ##     volume = {23},
 ##     pages = {10},
 ##     year = {2013},
-##     url = {https://dl.acm.org/doi/10.1145/2414416.2414791},
+##     doi = {10.1145/2414416.2414791},
 ##   }</code></pre>
 <p><strong>Please reference this paper if you use the PLP Package in
 your work:</strong></p>

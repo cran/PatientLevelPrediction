@@ -16,7 +16,8 @@ knitr::opts_chunk$set(echo = TRUE)
 # sampleSize <- 12000
 # plpData <- simulatePlpData(
 #   plpDataSimulationProfile,
-#   n = sampleSize
+#   n = sampleSize,
+#   seed = 42
 # )
 
 ## ----eval=FALSE---------------------------------------------------------------

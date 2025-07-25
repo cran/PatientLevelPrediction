@@ -12,7 +12,7 @@
 
 <meta name="author" content="Luis H. John, Jenna M. Reps, Peter R. Rijnbeek" />
 
-<meta name="date" content="2025-04-14" />
+<meta name="date" content="2025-07-25" />
 
 <title>Creating Learning Curves</title>
 
@@ -62,7 +62,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Creating Learning Curves</h1>
 <h4 class="author">Luis H. John, Jenna M. Reps, Peter R. Rijnbeek</h4>
-<h4 class="date">2025-04-14</h4>
+<h4 class="date">2025-07-25</h4>
 
 
 
@@ -418,8 +418,9 @@ for 12000 patients.</p>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>sampleSize <span class="ot">&lt;-</span> <span class="dv">12000</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>plpData <span class="ot">&lt;-</span> <span class="fu">simulatePlpData</span>(</span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  plpDataSimulationProfile,</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">n =</span> sampleSize</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">n =</span> sampleSize,</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">42</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>)</span></code></pre></div>
 <p>Specify the population settings (this does additional exclusions such
 as requiring minimum prior observation or no prior outcome as well as
 specifying the time-at-risk period to enable labels to be created):</p>
