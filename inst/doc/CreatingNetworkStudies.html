@@ -10,11 +10,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="Egill Fridgeirsson, Jenna Reps" />
+<meta name="author" content="Jenna Reps, Martijn J. Schuemie, Patrick B. Ryan, Peter R. Rijnbeek" />
 
-<meta name="date" content="2025-07-25" />
+<meta name="date" content="2025-10-15" />
 
-<title>Making patient-level predictive network study packages using Strategus</title>
+<title>Making patient-level predictive network study packages</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -41,107 +41,6 @@ ul.task-list{list-style: none;}
 
 
 
-<style type="text/css">
-code {
-white-space: pre;
-}
-.sourceCode {
-overflow: visible;
-}
-</style>
-<style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-{ counter-reset: source-line 0; }
-pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-color: #aaaaaa;
-}
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
-div.sourceCode
-{ }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } 
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.at { color: #7d9029; } 
-code span.bn { color: #40a070; } 
-code span.bu { color: #008000; } 
-code span.cf { color: #007020; font-weight: bold; } 
-code span.ch { color: #4070a0; } 
-code span.cn { color: #880000; } 
-code span.co { color: #60a0b0; font-style: italic; } 
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.do { color: #ba2121; font-style: italic; } 
-code span.dt { color: #902000; } 
-code span.dv { color: #40a070; } 
-code span.er { color: #ff0000; font-weight: bold; } 
-code span.ex { } 
-code span.fl { color: #40a070; } 
-code span.fu { color: #06287e; } 
-code span.im { color: #008000; font-weight: bold; } 
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.kw { color: #007020; font-weight: bold; } 
-code span.op { color: #666666; } 
-code span.ot { color: #007020; } 
-code span.pp { color: #bc7a00; } 
-code span.sc { color: #4070a0; } 
-code span.ss { color: #bb6688; } 
-code span.st { color: #4070a0; } 
-code span.va { color: #19177c; } 
-code span.vs { color: #4070a0; } 
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
-</style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    var j = 0;
-    while (j < rules.length) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
-        j++;
-        continue;
-      }
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') {
-        j++;
-        continue;
-      }
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
-  }
-})();
-</script>
 
 
 
@@ -339,34 +238,33 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <h1 class="title toc-ignore">Making patient-level predictive network
-study packages using Strategus</h1>
-<h4 class="author">Egill Fridgeirsson, Jenna Reps</h4>
-<h4 class="date">2025-07-25</h4>
+study packages</h1>
+<h4 class="author">Jenna Reps, Martijn J. Schuemie, Patrick B. Ryan,
+Peter R. Rijnbeek</h4>
+<h4 class="date">2025-10-15</h4>
 
 
 
 <div style="page-break-after: always;"></div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The OHDSI Patient-Level Prediction (PLP) package provides the
+<p>The OHDSI Patient Level Prediction (PLP) package provides the
 framework to implement prediction models at scale. This can range from
 developing a large number of models across sites (methodology and study
 design insight) to extensive external validation of existing models in
 the OHDSI PLP framework (model insight). This vignette describes how you
-can use the <code>Strategus</code> package to create and execute network
-studies using the PLP framework. (<code>Strategus</code>)[<a href="https://github.com/OHDSI/Strategus" class="uri">https://github.com/OHDSI/Strategus</a>] is a package to
-create and execute network studies in the OHDSI ecosystem. It works by
-creating a json file that holds all the specifications of the study,
-such as the target and outcome cohort definition, the settings of the
-model and PLP pipeline. This json can then be shared with other data
-partners who then can use Strategus to execute the study on their data.
-<code>Strategus</code> output is always csv files with aggregated data
-that can then be shared with the study coordinater.
-<code>Strategus</code> can be used for all kinds of studies, not only
-PLP studies, such as characterization, population level estimation and
-more. This vignette describes how to create and run
-<code>Strategus</code> studies that use the PLP framework to develop and
-validate patient-level prediction models.</p>
+can use the <code>PatientLevelPrediction</code> package to create a
+network study package.</p>
+</div>
+<div id="useful-publication" class="section level1">
+<h1>Useful publication</h1>
+<p>The open access publication <a href="https://pubmed.ncbi.nlm.nih.gov/34560604/">A standardized
+analytics pipeline for reliable and rapid development and validation of
+prediction models using observational health data</a> details the
+process used to develop and validate prediction models using the OHDSI
+prediction framework and tools. This publication describes each of the
+steps and then demonstrates these by focusing on predicting death in
+those who have covid-19.</p>
 </div>
 <div id="main-steps-for-running-a-network-study" class="section level1">
 <h1>Main steps for running a network study</h1>
@@ -379,57 +277,10 @@ adding existing models to framework. Suggestion: look in literature for
 validated definitions.</li>
 <li>Write a protocol that motivates the study and provides full details
 (sufficient for people to replicate the study in the future).</li>
-<li>Write an R script to create the json analysis specification file for
-the study. A useful study repo template can be found <a href="https://github.com/ohdsi-studies/StrategusStudyRepoTemplate/">here</a>.
-For a PLP model development study this means creating a
-<code>modelDesign</code> object. But first we need a target and outcome
-cohort defitinion. For this example we will use the following prediction
-problem:</li>
+<li>Write an R package for implementing the study across diverse
+computational environments [see guidance below for structure of package
+and use the skeleton github package here: <a href="https://github.com/OHDSI/SkeletonPredictionStudy" class="uri">https://github.com/OHDSI/SkeletonPredictionStudy</a> ]</li>
 </ul>
-<p>Among patients who have just started on an ACE inhibitor for the
-first time, who will experience angioedema in the following year?</p>
-<p>This is the same problem as example 2 in the vignette <a href="https://ohdsi.github.io/PatientLevelPrediction/articles/BuildingPredictiveModels.html">Building
-Predictive Models</a>.</p>
-<p>The cohorts to use can be fetched from the OHDSI Demo atlas. The
-target cohort is defined as patients who have started on an ACE
-inhibitor for the first time, and the outcome cohort is defined as
-patients who have experienced angioedema within one year of starting the
-ACE inhibitor. The target cohort is <a href="https://atlas-demo.ohdsi.org/#/cohortdefinition/1770617">this
-one</a>, and the outcome cohort is <a href="https://atlas-demo.ohdsi.org/#/cohortdefinition/1770616">this
-one</a>. First thing that needs to be done is fetch those cohorts. This
-is done by pressing the link for the cohort, going to the
-<code>Export</code> tab, and within that tab going to the
-<code>JSON</code> sub-tab. There you will see a box with the JSON
-defining the cohort. Below that on the left side is a
-<code>copy to clipboard</code> button. If you copy the JSON from there,
-you can paste it into an empty file and add the <code>json</code>
-extension.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(PatientLevelPrediction)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># Create a model design object</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>modelDesign <span class="ot">&lt;-</span> <span class="fu">createModelDesign</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">targetId =</span> <span class="dv">1</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">outcomeId =</span> <span class="dv">2</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">populationSettings =</span> <span class="fu">createStudyPopulationSettings</span>(</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="at">requireTimeAtRisk =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    <span class="at">riskWindowEnd =</span> <span class="dv">3</span><span class="sc">*</span><span class="dv">365</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  ),</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="at">covariateSettings =</span> FeatureExtraction<span class="sc">::</span><span class="fu">createCovariateSettings</span>(</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>    <span class="at">useDemographicsGender =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>    <span class="at">useDemographicsAge =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    <span class="at">useConditionOccurrenceLongTerm =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>    <span class="at">useDrugEraLongTerm =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>    <span class="at">useCharlsonIndex =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>    <span class="at">longTermStartDays =</span> <span class="sc">-</span><span class="dv">365</span>,</span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>    <span class="at">endDays =</span> <span class="dv">0</span></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>  ),</span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>  <span class="at">preprocessSettings =</span> <span class="fu">createPreprocessSettings</span>(), <span class="co"># default settings used</span></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>  <span class="at">modelSettings =</span> <span class="fu">setLassoLogsticRegression</span>(<span class="at">seed =</span> <span class="dv">42</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  <span class="at">splitSettings =</span> <span class="fu">createDefaultSplitSettings</span>(<span class="at">splitSeed =</span> <span class="dv">42</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>)</span></code></pre></div>
-<p>Next we need to create the json analysis specification file using
-Strategus.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a></span></code></pre></div>
 </div>
 <div id="step-2-implementing-the-study-part-1" class="section level2">
 <h2>Step 2 – implementing the study part 1</h2>
