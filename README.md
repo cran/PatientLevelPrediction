@@ -64,6 +64,11 @@ Screenshots
 </table>
 
 
+Demo of the Shiny Apps can be found here:
+
+- [Multiple Prediction Viewer Shiny App](https://data.ohdsi.org/smokingPhenotypeExplorer/)
+
+
 Technology
 ==========
 PatientLevelPrediction is an R package, with some functions using python through reticulate.
